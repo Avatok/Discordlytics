@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from flask import Flask, render_template_string
 
-# --- Flask Setup ---
 app = Flask(__name__)
 
 # --- CSV einlesen ---
@@ -43,7 +42,7 @@ def create_plots():
     sns.set_style("whitegrid")
     plt.rcParams.update({'axes.facecolor': '#ffffff', 'figure.facecolor': '#ffffff'})
 
-    # 1️⃣ Top User
+    # Top User Diagramm
     user_counts = df['user'].value_counts().head(10)
     fig, ax = plt.subplots(figsize=(7, 4))
     sns.barplot(x=user_counts.values, y=user_counts.index, palette="Blues_r", ax=ax)
@@ -52,7 +51,7 @@ def create_plots():
     ax.set_ylabel("User")
     plots['user'] = fig_to_base64(fig)
 
-    # 2️⃣ Top Channels
+    # Top Channels Diagramm
     channel_counts = df['channel'].value_counts().head(10)
     fig, ax = plt.subplots(figsize=(7, 4))
     sns.barplot(x=channel_counts.values, y=channel_counts.index, palette="viridis", ax=ax)
@@ -61,7 +60,7 @@ def create_plots():
     ax.set_ylabel("Channel")
     plots['channel'] = fig_to_base64(fig)
 
-    # 3️⃣ Nachrichten über Zeit
+    # Nachrichten über Zeit Diagramm
     daily = df.groupby('date').size()
     fig, ax = plt.subplots(figsize=(8, 4))
     sns.lineplot(x=daily.index, y=daily.values, marker="o", color="#0d6efd", ax=ax)
@@ -70,7 +69,7 @@ def create_plots():
     ax.set_ylabel("Nachrichten")
     plots['time'] = fig_to_base64(fig)
 
-    # 4️⃣ Heatmap: Wochentag & Stunde
+    # Heatmap: Wochentag & Stunde Diagramm
     pivot = df.pivot_table(index='weekday', columns='hour', values='message', aggfunc='count').fillna(0)
     pivot = pivot.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
     fig, ax = plt.subplots(figsize=(10, 5))
@@ -78,14 +77,14 @@ def create_plots():
     ax.set_title("Aktivität nach Wochentag & Stunde", fontsize=13, fontweight='bold')
     plots['heatmap'] = fig_to_base64(fig)
 
-    # 5️⃣ Durchschnittliche Nachrichten pro User
+    # 5️Durchschnittliche Nachrichten pro User Diagramm
     avg_msgs = df.groupby('user').size().mean()
     fig, ax = plt.subplots(figsize=(5, 3))
     ax.barh(["Durchschnitt"], [avg_msgs], color="#198754")
     ax.set_title("Durchschnittliche Nachrichten pro User", fontsize=13, fontweight='bold')
     plots['avg'] = fig_to_base64(fig)
 
-    # 6️⃣ Aktivität pro Wochentag
+    # Aktivität pro Wochentag Diagramm
     weekday_counts = df['weekday'].value_counts().reindex(
         ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     )
@@ -96,7 +95,7 @@ def create_plots():
     ax.set_xlabel("Wochentag")
     plots['weekday'] = fig_to_base64(fig)
 
-    # 7️⃣ Aktivität pro Stunde
+    # Aktivität pro Stunde Diagramm
     hour_counts = df['hour'].value_counts().sort_index()
     fig, ax = plt.subplots(figsize=(7, 4))
     sns.lineplot(x=hour_counts.index, y=hour_counts.values, marker="o", color="#ff6600", ax=ax)
@@ -107,8 +106,7 @@ def create_plots():
 
     return plots
 
-
-# --- Dashboard Template ---
+# --- Startseite mit Diagramme ---
 TEMPLATE = """
 <!DOCTYPE html>
 <html lang="de">
@@ -192,7 +190,7 @@ TEMPLATE = """
 """
 
 
-# --- Userliste Template ---
+# --- Userliste ---
 USER_TEMPLATE = """
 <!DOCTYPE html>
 <html lang="de">
@@ -250,13 +248,11 @@ USER_TEMPLATE = """
 </html>
 """
 
-
 # --- Flask Routes ---
 @app.route("/")
 def index():
     plots = create_plots()
     return render_template_string(TEMPLATE, plots=plots)
-
 
 @app.route("/users")
 def users():
@@ -264,7 +260,6 @@ def users():
     user_stats.columns = ['User', 'Nachrichten']
     return render_template_string(USER_TEMPLATE, users=user_stats)
 
-
-# --- Main ---
 if __name__ == "__main__":
     app.run(debug=True)
+
