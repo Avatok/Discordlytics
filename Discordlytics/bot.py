@@ -6,9 +6,9 @@ from datetime import datetime
 
 # ---------- CONFIG ----------
 TRACKED_CHANNELS = [
-    1437414720045846629,  # Channel 1
-    1437414836761006100,  # Channel 2
-    1437414887667138630,  # Channel 3
+    Channel ID1,  # Channel 1
+    Channel ID2,  # Channel 2
+    Channel ID3,  # Channel 3
 ]
 
 intents = discord.Intents.default()
@@ -88,4 +88,4 @@ async def on_message_delete(message):
     update_csv(message.id, new_status="gelöscht")
 
 # Bot starten
-bot.run("MTQzNDkzMzkwMDI4NjYyMzg3OA.GA9Sda.lNfuNGpm77R5nU5AqJQGRujmsWADiYvwfV6O_k")
+bot.run("BOT TOKEN")
