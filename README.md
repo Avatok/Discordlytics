@@ -126,19 +126,3 @@ python app.py
 
 Dieses Projekt steht unter der **MIT-Lizenz**.  
 Du kannst den Code frei nutzen, verändern und teilen — Credits sind immer willkommen 🙌  
-
----
-
-## 💡 Autor
-
-**Pascal**  
-🎓 Student & Entwickler von Discordlytics  
-📬 Feedback und Ideen sind willkommen!
-
----
-
-## ⭐ Support
-
-Wenn dir das Projekt gefällt,  
-→ **Gib ihm bitte einen Star ⭐ auf GitHub!**  
-Das motiviert und hilft, Discordlytics weiterzuentwickeln 🚀
