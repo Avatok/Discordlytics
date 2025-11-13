@@ -94,23 +94,7 @@ Die Website öffnet ein Dashboard, das dir zeigt:
 
 ---
 
-## 🖼️ Beispiel (optional)
-
-> *(Füge hier Screenshots ein, wenn du möchtest — z. B. vom Dashboard oder Terminal)*
-
-```text
-📁 Projektstruktur:
-│
-├── bot.py              # Discord Bot zum Tracking
-├── app.py              # Flask App für das Web-Dashboard
-├── data.csv            # Gespeicherte Tracking-Daten
-├── install_packages.bat # Installer für Python-Abhängigkeiten
-└── README.md           # Diese Datei
-```
-
----
-
-## 🛠️ Beispielbefehle
+## 🛠️ Wichtige CMD Befehle
 
 ```bash
 # Bot starten
